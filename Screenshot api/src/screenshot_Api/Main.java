@@ -19,33 +19,35 @@ public class Main {
 		}
 		
 	    String secretPhrase = "";//leave secret phrase empty, if not needed
-
 		
-		//Arrays to iterate with
-		String []	wNames = {"iFunded", "Property Partner", "Property Moose","Homegrown", "Realty Mogul"};
-		String []	websites = {"https://ifunded.de/en/", "www.propertypartner.co", "propertymoose.co.uk",
-				"www.homegrown.co.uk", "https://www.realtymogul.com"};
-		for (int i =0; i<websites.length;i++) {
+		Map <String, String> targetWebs = new HashMap<String, String>();
+		
+		targetWebs.put("iFunded" , "https://ifunded.de/en/");
+		targetWebs.put("Property Partner" , "www.propertypartner.co");
+		targetWebs.put("Property Moose" , "propertymoose.co.uk");
+		targetWebs.put("Homegrown" , "www.homegrown.co.uk");
+		targetWebs.put("Realty Mogul" , "https://www.realtymogul.com");
+		
+		for(Entry <String,String> targetWeb : targetWebs.entrySet()) {			
 			Client c = new Client();
 			try {
-				c.client(customerKey, secretPhrase, websites[i], wNames[i] );
+				c.client(customerKey, secretPhrase, targetWeb.getValue(), targetWeb.getKey());
 			} catch (NoSuchAlgorithmException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		try
-        { 
-         // We are running Quickstart on cmd
-         Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ../Quickstart && gradle run \"");
-        }
-        catch (Exception e)
-        {
-            System.out.println("Something Wrong ");
-            e.printStackTrace();
-        }
-		
+		{ 
+		 // We are running Quickstart on cmd
+		 Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ../Quickstart && gradle run \"");
+		}
+		catch (Exception e)
+		{
+		    System.out.println("Something Wrong ");
+		    e.printStackTrace();
+		}
+
 	}
 
 }
